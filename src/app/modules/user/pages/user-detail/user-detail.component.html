@@ -1,0 +1,16 @@
+<p>user-detail works!</p>
+
+{{user | json}}
+
+<form [formGroup]="form">
+    <label>
+        Cliente
+        <input name="name" type="text" formControlName="displayname" />
+      </label>
+      <div class="contacto">
+        <label>
+          Email
+          <input name="email" type="text" formControlName="email" />
+        </label>
+      </div>
+</form>

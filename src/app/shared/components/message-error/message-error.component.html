@@ -1,0 +1,5 @@
+<div class="text-xs italic text-red-500" *ngIf="control && control.invalid && (control.dirty || control.touched)">
+  <ng-container *ngIf="control?.errors as errors">
+    {{ errors | controlErrorMessage }}
+  </ng-container>
+</div>
