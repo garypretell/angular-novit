@@ -20,7 +20,7 @@
         <!-- if this attribute is a boolean, we will show values from config
         object depending on his state -->
         <ng-container *ngIf="col.config.isBoolean">
-          {{ showBooleanValue(element, col) }}
+          {{ element | isBooleanCell : col }}
         </ng-container>
         <!-- if this attribute is a date, we will format it depending on format
           value in config object -->
@@ -31,7 +31,7 @@
           it as a mat-button -->
         <ng-container *ngIf="col.config.isAction">
           <button
-            class="mr-2"
+            class="mr-2 group relative flex w-full justify-center rounded-md border border-transparent bg-primary-500 p-1 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:bg-primary-400"
             *ngFor="let action of col.config.actions"
             (click)="emitter.emit({action, element})"
             mat-button

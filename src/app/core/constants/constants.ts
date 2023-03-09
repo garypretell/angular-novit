@@ -14,6 +14,14 @@ export const USER_TABLE: ITableColumn[] = [
   { key: "email", display: "Email" },
   { key: "dni", display: "Dni" },
   {
+    key: "created_at",
+    display: "Fecha Registro",
+    config: {
+      isDate: true,
+      format: "dd MMM yy"
+    }
+  },
+  {
     key: "estado",
     display: "State",
     config: {

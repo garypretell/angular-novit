@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import { ITableColumn } from '@core/interfaces/table.interface';
+import { IsBooleanCellPipe } from '@shared/pipes/is-boolean-cell.pipe';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatTableModule, IsBooleanCellPipe],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
@@ -17,9 +18,5 @@ export class TableComponent {
 
   get keys() {
     return this.tableCols.map(({ key }) => key);
-  }
-
-  showBooleanValue(elt: any, column: any) {
-    return column.config.values[`${elt[column.key]}`];
   }
 }
