@@ -1,3 +1,5 @@
+import { ITableColumn } from "@core/interfaces/table.interface";
+
 export const PATH_SERVICE: any = {
   login: '/auth/v1/token?grant_type=password',
   user: '/rest/v1/usuario?uid=eq.',
@@ -6,3 +8,25 @@ export const PATH_SERVICE: any = {
   userListPagination: '/rest/v1/usuario?select=*',
   userAdd: '/rest/v1/usuario',
 };
+
+export const USER_TABLE: ITableColumn[] = [
+  { key: "displayName", display: "Username" },
+  { key: "email", display: "Email" },
+  { key: "dni", display: "Dni" },
+  {
+    key: "estado",
+    display: "State",
+    config: {
+      isBoolean: true,
+      values: { true: "Activo", false: "Inactivo" }
+    }
+  },
+  {
+    key: "action",
+    display: "Action",
+    config: {
+      isAction: true,
+      actions: ["detail"]
+    }
+  }
+];

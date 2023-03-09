@@ -3,21 +3,15 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { USER_TABLE } from '@core/constants/constants';
 import { PATH_URL_DATA } from '@core/constants/routes';
 import { IFilter } from '@core/interfaces/filter.interface';
-import { User } from '@core/interfaces/user';
 import { AuthService } from '@core/services/auth.service';
 import { UserService } from '@core/services/user.service';
 import { BaseFormUserSearch } from '@core/utils/base-form-user-search';
 import {
-  catchError,
-  combineLatest,
-  debounceTime,
-  ignoreElements,
-  map,
-  Observable,
-  of,
-  startWith,
+  catchError, ignoreElements, Observable,
+  of
 } from 'rxjs';
 import { UserCreateComponent } from '../user-create/user-create.component';
 
@@ -27,12 +21,14 @@ import { UserCreateComponent } from '../user-create/user-create.component';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
+
+  cols = USER_TABLE;
+
   filtros: IFilter[] = [];
   filtroData = {};
   length = 10;
   pageSize = 5;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
 
   hidePageSize = true;
   showPageSizeOptions = false;
@@ -50,12 +46,31 @@ export class UserListComponent {
 
   userList$!: Observable<any>;
   userListError$!: Observable<any>;
-  // userList$ = this.authService.userList();
   // userList$ = this.userService.getUsers();
   // userListError$ = this.userList$.pipe(
   //   ignoreElements(),
   //   catchError((err) => of(err))
   // );
+
+  ngOnInit(): void {
+    this.initData();
+  }
+
+  initData() {
+    this.userService
+      .getUsersPagination(
+        { from: 0, to: this.pageSize - 1 },
+        this.filtroData
+      )
+      .subscribe((data) => {
+        this.length = data.headers.get('content-range').split('/')[1];
+        this.userList$ = of(data.body);
+        this.userListError$ = this.userList$.pipe(
+          ignoreElements(),
+          catchError((err) => of(err))
+        );
+      });
+  }
 
   getDetail(user: any) {
     this.router.navigate([`${PATH_URL_DATA.urlUserDetail}/${user.id}`]);
@@ -80,26 +95,6 @@ export class UserListComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.initData();
-  }
-
-  initData() {
-    this.userService
-      .getUsersPagination(
-        { from: 0, to: this.pageSize - 1 },
-        this.filtroData
-      )
-      .subscribe((data) => {
-        this.length = data.headers.get('content-range').split('/')[1];
-        this.userList$ = of(data.body);
-        this.userListError$ = this.userList$.pipe(
-          ignoreElements(),
-          catchError((err) => of(err))
-        );
-      });
-  }
-
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
     this.length = e.length;
@@ -116,14 +111,6 @@ export class UserListComponent {
         this.length = +data.headers.get('content-range').split('/')[1];
         this.userList$ = of(data.body);
       });
-  }
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput
-        .split(',')
-        .map((str) => +str);
-    }
   }
 
   filtrar() {
@@ -157,4 +144,16 @@ export class UserListComponent {
     this.searchUserForm.baseForm.get(filtro.id)?.setValue('');
     this.filtrar();
   }
+
+  onActionHandler(event: any) {
+    switch (event.action) {
+      case 'detail':
+        this.getDetail(event.element);
+      break;
+    
+      default:
+        break;
+    }
+  }
+
 }

@@ -10,6 +10,7 @@ import { TabBarModule } from '@modules/tab-bar';
 import { FilterChipListComponent } from '@shared/components/filter-chip-list/filter-chip-list.component';
 import { ManagementObservableComponent } from '@shared/components/management-observable/management-observable.component';
 import { MessageErrorComponent } from '@shared/components/message-error/message-error.component';
+import { TableComponent } from '@shared/components/table/table.component';
 import { CustomRouterReuseStrategy } from 'src/app/custom-router-reuse.strategy';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
@@ -34,7 +35,8 @@ import { UserComponent } from './user.component';
     MatButtonModule,
     MatPaginatorModule,
     FilterChipListComponent,
-    MessageErrorComponent
+    MessageErrorComponent,
+    TableComponent
   ],
   providers: [
     CustomRouterReuseStrategy
