@@ -10,6 +10,7 @@ export interface User {
   lastSesion: any;
   uid: string;
   displayName: string;
+  dni: number;
   avatar: string;
   email: string;
   estado: boolean;

@@ -1,8 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthSession, AuthUser, createClient, SupabaseClient } from '@supabase/supabase-js';
-import { BehaviorSubject, first, lastValueFrom, Observable, of, shareReplay, take } from 'rxjs';
+import { MODAL_ALERT } from '@core/constants/modal-title';
+import {
+  AuthSession,
+  AuthUser,
+  createClient,
+  SupabaseClient,
+} from '@supabase/supabase-js';
+import {
+  BehaviorSubject,
+  first,
+  lastValueFrom,
+  Observable,
+  of,
+  shareReplay,
+  take,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PATH_SERVICE } from '../constants/constants';
 import { LOGIN_ALERT } from '../constants/modal-titles';
@@ -25,9 +39,12 @@ export class AuthService {
     private router: Router,
     public jwtHelper: JwtHelperService,
     private dataService: DataService,
-    private modalService: ModalService,
+    private modalService: ModalService
   ) {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.supabase = createClient(
+      environment.supabaseUrl,
+      environment.supabaseKey
+    );
 
     this.init();
   }
@@ -61,13 +78,21 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const isExpired = this.jwtHelper.isTokenExpired(token);
     if (isExpired) {
-      this.modalService.modalData = LOGIN_ALERT;
+      MODAL_ALERT.title = 'Alerta';
+      MODAL_ALERT.message =
+        'La sesión ha expirado!';
+      MODAL_ALERT.show = true;
+      this.modalService.modalData = MODAL_ALERT;
       this.signOut();
     }
   }
 
   async usuario(uid: any): Promise<any> {
-    const { data, error } = await this.supabase.from('usuario').select('*').match({ uid }).single();
+    const { data, error } = await this.supabase
+      .from('usuario')
+      .select('*')
+      .match({ uid })
+      .single();
     return data;
   }
 
@@ -121,7 +146,7 @@ export class AuthService {
   userById(id: string): Observable<any> {
     const pathService = environment.supabaseUrl + PATH_SERVICE.userId + id;
     this.dataService.set(pathService);
-    return this.dataService.execGet();
+    return this.dataService.execGet(shareReplay(1));
   }
 
   userList(): Observable<User[]> {
@@ -139,8 +164,8 @@ export class AuthService {
     });
   }
 
-  private async createUserData(user: any, usuario: any) {
-    const usuarioCreate: any = {
+  private async createUserData(user: any, usuario: User) {
+    const usuarioCreate: User = {
       lastSesion: Date.now(),
       uid: user.id,
       displayName: usuario.displayName,
@@ -157,7 +182,9 @@ export class AuthService {
       },
     };
 
-    const { data, error } = await this.supabase.from('usuario').insert([usuarioCreate]);
+    const { data, error } = await this.supabase
+      .from('usuario')
+      .insert([usuarioCreate]);
     return { data, error };
   }
 

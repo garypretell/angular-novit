@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import NotFoundComponent from '@modules/not-found/not-found.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BottomNavbarComponent } from './components/bottom-navbar/bottom-navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -32,6 +33,6 @@ import { LayoutComponent } from './layout.component';
     NavbarMobileMenuComponent,
     NavbarMobileSubmenuComponent,
   ],
-  imports: [CommonModule, LayoutRoutingModule, HttpClientModule, AngularSvgIconModule.forRoot()],
+  imports: [CommonModule, LayoutRoutingModule, HttpClientModule, AngularSvgIconModule.forRoot(), NotFoundComponent],
 })
 export class LayoutModule {}

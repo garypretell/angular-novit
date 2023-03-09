@@ -18,14 +18,15 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     const token = localStorage.getItem('token');
-    // req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
-    // req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-    // req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + environment.supabaseKey) });
+    req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
     req = req.clone({ headers: req.headers.set('apikey', environment.supabaseKey) });
 
     return next.handle(req)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          console.log(error);
           if (error && error.status === 401) {
             console.log('ERROR 401 UNAUTHORIZED');
             this.authService.signOut();

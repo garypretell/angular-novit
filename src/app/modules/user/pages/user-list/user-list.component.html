@@ -1,75 +1,87 @@
-<app-management-observable
-  [obs]="filteredUsers$ | async"
-  [err]="userListError$ | async"
-  [obsTemplate]="userListTmpl"
-  [obsErrTemplate]="userErrListTmpl"
->
-  <ng-template #userListTmpl let-data>
-    <h3 class="m-3">LISTADO DE USUARIOS</h3>
-    <div class="pb-4 mx-3 dark:bg-gray-900 flex justify-end">
-      <label for="table-search" class="sr-only">Search</label>
-      <div class="relative mt-1">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"></path>
-          </svg>
+<div class="contenedor">
+  <div class="filtro mt-5">
+    <!-- <h3 class="m-3">&nbsp;</h3> -->
+    <div
+      class="w-full  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <form class="space-y-6" [formGroup]="searchUserForm.baseForm">
+        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Filtrar Usuarios</h5>
+        <div>
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+          <input type="text" name="username" id="username" formControlName="displayName"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Username" required>
         </div>
-        <input type="text" id="table-search"
-          class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          [formControl]="searchControl" placeholder="Search users">
-      </div>
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+          <input type="email" name="email" id="email" formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="name@company.com" required>
+        </div>
+        <div>
+          <label for="dni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
+          <input type="number" name="dni" id="dni" placeholder="Dni" formControlName="dni"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            required>
+        </div>
+        <button type="submit" (click)="filtrar()"
+          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Filtrar</button>
+      </form>
     </div>
-    <div class="relative mx-3 overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-        <thead
-          class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
-        >
-          <tr>
-            <th scope="col" class="px-6 py-3">User name</th>
-            <th scope="col" class="px-6 py-3">Email</th>
-            <th scope="col" class="px-6 py-3">Dni</th>
-            <th scope="col" class="px-6 py-3">State</th>
-            <th scope="col" class="px-6 py-3">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="border-b bg-white dark:border-gray-700 dark:bg-gray-900"
-            *ngFor="let user of data"
-          >
-            <th
-              scope="row"
-              class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-            >
-              {{ user.displayName }}
-            </th>
-            <td class="px-6 py-4">
-              {{ user.email }}
-            </td>
-            <td class="px-6 py-4">
-              {{ user.dni }}
-            </td>
-            <td class="px-6 py-4">
-              {{ user.estado ? "Activo" : "Inactivo" }}
-            </td>
-            <td class="px-6 py-4">
-              <a
-                [ngStyle]="{'cursor': 'pointer'}"
-                [routerLink]=""
-                (click)="getDetail(user)"
-                class="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                >Edit</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </ng-template>
-  <ng-template #userErrListTmpl let-error>
-    {{ error | json }}
-  </ng-template>
-</app-management-observable>
+
+  </div>
+  <div class="tabla">
+    <app-management-observable [obs]="userList$ | async" [err]="userListError$ | async" [obsTemplate]="userListTmpl"
+      [obsErrTemplate]="userErrListTmpl">
+      <ng-template #userListTmpl let-data>
+        <h3 class="m-3">LISTADO DE USUARIOS</h3>
+        <div class="pb-4 mx-3 dark:bg-gray-900 flex justify-between">
+          <app-filter-chip-list [filtros]="filtros" (action)="remove($event)"></app-filter-chip-list>
+          <button title="modalOpen"
+            class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2"
+            (click)="openDialog()">Registrar</button>
+        </div>
+        <div class="relative mx-3 overflow-x-auto shadow-md sm:rounded-lg">
+          <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">User name</th>
+                <th scope="col" class="px-6 py-3">Email</th>
+                <th scope="col" class="px-6 py-3">Dni</th>
+                <th scope="col" class="px-6 py-3">State</th>
+                <th scope="col" class="px-6 py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-900" *ngFor="let user of data">
+                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
+                  {{ user.displayName }}
+                </th>
+                <td class="px-6 py-4">
+                  {{ user.email }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ user.dni }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ user.estado ? "Activo" : "Inactivo" }}
+                </td>
+                <td class="px-6 py-4">
+                  <a [ngStyle]="{'cursor': 'pointer'}" [routerLink]="" (click)="getDetail(user)"
+                    class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
+            [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []" [hidePageSize]="hidePageSize"
+            [pageIndex]="pageIndex">
+          </mat-paginator>
+        </div>
+      </ng-template>
+      <ng-template #userErrListTmpl let-error>
+        {{ error | json }}
+      </ng-template>
+    </app-management-observable>
+  </div>
+</div>

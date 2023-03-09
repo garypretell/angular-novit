@@ -15,8 +15,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/layout/layout.module').then((m) => m.LayoutModule),
     canActivate: [authGuard],
   },
+  {
+    path: 'not-found',
+    loadComponent: () => import('./modules/not-found/not-found.component')
+  },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  { path: '**', redirectTo: 'error/404' },
+  { path: '**', redirectTo: 'not-found' },
 ];
 
 @NgModule({

@@ -1,6 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageErrorComponent } from '@shared/components/message-error/message-error.component';
+import { PasswordStrengthBarComponent } from '@shared/components/password-strength-bar/password-strength-bar.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PATH_URL_DATA } from 'src/app/core/constants/routes';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { matchValidator } from 'src/app/shared/validators/frm-validators';
@@ -9,6 +13,9 @@ import { matchValidator } from 'src/app/shared/validators/frm-validators';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MessageErrorComponent,
+    PasswordStrengthBarComponent, AngularSvgIconModule]
 })
 export class SignUpComponent {
   form: FormGroup;

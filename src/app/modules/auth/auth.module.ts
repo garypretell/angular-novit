@@ -19,7 +19,6 @@ import { PasswordStrengthBarComponent } from '@shared/components/password-streng
   declarations: [
     AuthComponent,
     SignInComponent,
-    SignUpComponent,
     ForgotPasswordComponent,
     NewPasswordComponent,
     TwoStepsComponent,

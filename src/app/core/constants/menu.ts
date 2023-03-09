@@ -11,8 +11,7 @@ export class Menu {
           label: 'Usuarios',
           route: '/novit/user',
           children: [
-            { label: 'Listado', route: '/novit/user/list' },
-            { label: 'Nuevo', route: '/novit/user/create' },
+            { label: 'Listado', route: '/novit/user/list' }
           ],
         },
         // {

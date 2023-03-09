@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import NotFoundComponent from '@modules/not-found/not-found.component';
 import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
@@ -13,8 +14,12 @@ const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () => import('../user/user.module').then((m) => m.UserModule)
   },
+  {
+    path: 'not-found',
+    component: NotFoundComponent
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'error/404' },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({

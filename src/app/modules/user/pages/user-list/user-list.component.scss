@@ -1,0 +1,23 @@
+.contenedor {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, auto);
+  grid-template-areas: "filtro tabla tabla tabla";
+}
+
+.contenedor .filtro {
+  grid-area: filtro;
+}
+
+.contenedor .tabla {
+  grid-area: tabla;
+}
+
+@media screen and (max-width: 768px) {
+  .contenedor {
+    grid-template-areas:
+      "filtro filtro filtro filtro"
+      "tabla tabla tabla tabla";
+  }
+}

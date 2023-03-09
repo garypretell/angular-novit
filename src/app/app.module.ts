@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CustomRouterReuseStrategy } from './custom-router-reuse.strategy';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -22,7 +23,8 @@ export function tokenGetter(): any {
       config: {
         tokenGetter,
       },
-    }),],
+    }),
+    BrowserAnimationsModule,],
   providers: [
     {
       provide: RouteReuseStrategy,

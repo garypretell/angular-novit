@@ -19,5 +19,7 @@ export const FN_CONTROL_ERROR_MESSAGE: any = {
   phoneNumber: () => 'Sólo puede ingresar números y guiones',
   betweenLength: (error: { currentLength: number; requiredMinLength: number; requiredMaxLength: number }) =>
     `El campo ingresado debe contener entre ${error.requiredMinLength} y  ${error.requiredMaxLength} caracteres`,
+  equalsLength: (error: { currentLength: number; requiredLength: number }) =>
+    `El campo ingresado debe contener ${error.requiredLength} caracteres`,
   matching: () => 'Las contraseñas no coinciden',
 };

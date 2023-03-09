@@ -1,1 +1,31 @@
-<p>user-create works!</p>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formUserCreate.baseForm">
+    <h3 class="text-xl font-medium text-gray-900 dark:text-white">Registrar Usuario</h3>
+        <div>
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+          <input type="text" name="username" id="username" formControlName="displayName"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Username" required>
+            <app-message-error [control]="formUserCreate.baseForm.controls['displayName']"></app-message-error>
+        </div>
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+          <input type="email" name="email" id="email" formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            placeholder="name@company.com" required>
+            <app-message-error [control]="formUserCreate.baseForm.controls['email']"></app-message-error>
+        </div>
+        <div>
+          <label for="dni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
+          <input type="number" name="dni" id="dni" placeholder="Dni" formControlName="dni"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            required>
+            <app-message-error [control]="formUserCreate.baseForm.controls['dni']"></app-message-error>
+        </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Salir</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="createUser()" [disabled]="!formUserCreate.baseForm.valid">Registrar</button>
+</mat-dialog-actions>
+
