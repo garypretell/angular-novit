@@ -74,7 +74,7 @@ export class AuthService {
     return this._session;
   }
 
-  private checkToken(): void {
+  public checkToken(): void {
     const token = localStorage.getItem('token');
     const isExpired = this.jwtHelper.isTokenExpired(token);
     if (isExpired) {
