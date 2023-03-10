@@ -146,13 +146,13 @@ export class UserListComponent {
   }
 
   onActionHandler(event: any) {
-    switch (event.action) {
+    switch (event.action.title) {
       case 'detail':
         this.getDetail(event.element);
       break;
-    
       default:
-        break;
+        alert(JSON.stringify(event.element));
+      break;
     }
   }
 

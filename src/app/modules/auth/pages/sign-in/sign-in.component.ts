@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { forkJoin, mergeMap, of } from 'rxjs';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   credentials: FormGroup;
   show: boolean = false;
   spinner: boolean = false;
@@ -21,8 +21,6 @@ export class SignInComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
-
-  ngOnInit(): void {}
 
   password(): void {
     this.show = !this.show;

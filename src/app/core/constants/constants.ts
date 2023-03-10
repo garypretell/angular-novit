@@ -34,7 +34,10 @@ export const USER_TABLE: ITableColumn[] = [
     display: "Action",
     config: {
       isAction: true,
-      actions: ["detail"]
+      actions: [
+        {title: "detail", styles: "m-2 group relative justify-center rounded-md border border-transparent bg-primary-500 p-1 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:bg-primary-400"},
+        {title: "other", styles: "m-2 group relative  justify-center rounded-md border border-transparent bg-blue-500 p-1 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:bg-blue-400"},
+      ]
     }
   }
 ];
