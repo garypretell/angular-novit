@@ -26,6 +26,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Salir</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="createUser()" [disabled]="!formUserCreate.baseForm.valid">Registrar</button>
+  <button mat-button [mat-dialog-close]="data" autoFocus (click)="createUser()" [disabled]="!formUserCreate.baseForm.valid">Registrar</button>
 </mat-dialog-actions>
 

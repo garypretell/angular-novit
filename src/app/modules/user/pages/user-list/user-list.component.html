@@ -39,13 +39,7 @@
             (click)="openDialog()">Registrar</button>
         </div>
         <div class="mr-2">
-          <app-table [cols]="cols" [data]="data" (onAction)="onActionHandler($event)"></app-table>
-          <hr>
-          <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="length"
-            [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-            [hidePageSize]="hidePageSize"
-            [pageIndex]="pageIndex">
-          </mat-paginator>
+          <app-table [cols]="cols" [data]="data" [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" (onAction)="onActionHandler($event)" (pageAction)="handlePageEvent($event)"></app-table>
         </div>
       </ng-template>
     </app-management-observable>

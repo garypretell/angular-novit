@@ -29,12 +29,6 @@ export class UserListComponent {
   length = 10;
   pageSize = 5;
   pageIndex = 0;
-
-  hidePageSize = true;
-  showPageSizeOptions = false;
-  showFirstLastButtons = true;
-  disabled = false;
-
   pageEvent!: PageEvent;
 
   searchUserForm = inject(BaseFormUserSearch);

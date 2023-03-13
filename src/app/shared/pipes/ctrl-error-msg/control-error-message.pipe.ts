@@ -3,6 +3,7 @@ import { FN_CONTROL_ERROR_MESSAGE } from '@core/constants/control-error-message.
 
 @Pipe({
   name: 'controlErrorMessage',
+  standalone: true
 })
 export class ControlErrorMessagePipe implements PipeTransform {
   transform(value: any): string {

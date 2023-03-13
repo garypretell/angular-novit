@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -11,6 +12,7 @@ import { FilterChipListComponent } from '@shared/components/filter-chip-list/fil
 import { ManagementObservableComponent } from '@shared/components/management-observable/management-observable.component';
 import { MessageErrorComponent } from '@shared/components/message-error/message-error.component';
 import { TableComponent } from '@shared/components/table/table.component';
+import { AutoFocusDirective } from '@shared/directives/auto-focus.directive';
 import { CustomRouterReuseStrategy } from 'src/app/custom-router-reuse.strategy';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { UserDetailComponent } from './pages/user-detail/user-detail.component';
@@ -36,7 +38,9 @@ import { UserComponent } from './user.component';
     MatPaginatorModule,
     FilterChipListComponent,
     MessageErrorComponent,
-    TableComponent
+    TableComponent,
+    A11yModule,
+    AutoFocusDirective
   ],
   providers: [
     CustomRouterReuseStrategy

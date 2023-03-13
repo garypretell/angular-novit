@@ -39,4 +39,5 @@ export class NavbarMenuComponent implements OnInit {
       this.hideMenuClass.forEach((c) => element.classList.add(c));
     }
   }
+
 }

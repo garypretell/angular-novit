@@ -46,3 +46,9 @@
   <tr mat-header-row *matHeaderRowDef="keys"></tr>
   <tr mat-row *matRowDef="let row; columns: keys"></tr>
 </table>
+<hr>
+<mat-paginator *ngIf="isVisiblePagination" (page)="handlePageEvent($event)" [length]="length"
+            [pageSize]="pageSize" [disabled]="false" [showFirstLastButtons]="true"
+            [hidePageSize]="true"
+            [pageIndex]="pageIndex">
+          </mat-paginator>
